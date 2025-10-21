@@ -54,10 +54,10 @@ def help():
     
     # Create features panel
     features = [
-        "🔬 [bold green]Automated[/bold green] physics experiment analysis",
-        "📓 [bold green]Jupyter[/bold green] notebook based workflow",
+        "🔬 [bold green]AI-driven[/bold green] data extraction from worksheets",
+        "💡 [bold green]Automated[/bold green] data analysis and graphing",
         "📈 [bold green]Rich[/bold green] visualizations and reports",
-        "⚙️ [bold green] Configurable[/bold green] analysis parameters"
+        "📓 [bold green]Jupyter[/bold green] notebook based workflow",
     ]
     
     features_text = Text("\n").join(Text.from_markup(f) for f in features)
@@ -69,15 +69,36 @@ def help():
         padding=(1, 2)
     )
     
-    # Create a table to hold both panels side by side
-    table = Table(show_header=False, box=None, padding=0, expand=True)
-    table.add_column(width=60, ratio=1)  # Left column for description panel
-    table.add_column(width=50, ratio=1)  # Right column for features panel
-    table.add_row(desc_panel, features_panel)
+    # Use responsive layout based on console width
+    mode = "parallel" if console.size.width >= 100 else "stacked"
     
-    # Print the table with both panels
-    console.print(table)
-    console.print("")
+    if mode == "parallel":
+        # Pre-calculate heights to unify them
+        options = console.options
+        desc_width, feat_width = 60, 50
+        desc_options = options.update(width=desc_width)
+        desc_render = console.render_lines(desc_panel, desc_options, pad=False)
+        feat_options = options.update(width=feat_width)
+        feat_render = console.render_lines(features_panel, feat_options, pad=False)
+        
+        panel_height = max(len(desc_render), len(feat_render))
+        desc_panel.height = panel_height - 1
+        features_panel.height = panel_height - 1
+        
+        # Create a table to hold both panels side by side
+        table = Table(show_header=False, box=None, padding=0, expand=True)
+        table.add_column(width=desc_width, ratio=1)  # Left column for description panel
+        table.add_column(width=feat_width, ratio=1)  # Right column for features panel
+        table.add_row(desc_panel, features_panel)
+        
+        # Print the table with both panels
+        console.print(table)
+        console.print("")
+    elif mode == "stacked":
+        console.print(desc_panel)
+        console.print("")
+        console.print(features_panel)
+        console.print("")
 
 
 if __name__ == "__main__":
