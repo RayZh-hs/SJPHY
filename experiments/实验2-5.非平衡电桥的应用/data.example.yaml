@@ -1,0 +1,18 @@
+# This is an example data file for the physics lab report.
+# You should create a data.yaml file in the same directory.
+# To generate the data file, submit photos of your lab report to an AI agent,
+# Alongside the prompt defined in main.ipynb.
+
+# The sole purpose of this file is to showcase the expected structure of data.yaml.
+
+ntc-data:
+  - rp: null         # Rp at 0°C to balance the bridge (Ω)
+  - ci: null         # Current through the bridge at 100°C calibration (mA)
+  - temperature: []  # Temperature readings (°C)
+  - voltage: []      # Voltage readings (mV)
+
+pt100-data:
+  - rp: null         # Rp at 0°C to balance the bridge (Ω)
+  - ci: null         # Current through the bridge at 100°C calibration (mA)
+  - temperature: []  # Temperature readings (°C)
+  - voltage: []      # Voltage readings (mV)
