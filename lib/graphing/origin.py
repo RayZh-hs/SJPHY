@@ -2,6 +2,7 @@ from matplotlib import rcParams
 from cycler import cycler
 from .font import SONGTI_FONT_FAMILY
 
+rcParams['mathtext.fontset'] = 'cm' 
 rcParams['font.family'] = 'serif'
 rcParams['font.serif'] = [SONGTI_FONT_FAMILY, 'SimSun', 'Source Han Serif', 'Times New Roman']
 rcParams['font.size'] = 15
