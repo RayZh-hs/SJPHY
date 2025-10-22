@@ -1399,6 +1399,7 @@ dependencies = [
     { name = "pyyaml" },
     { name = "rich" },
     { name = "rich-gradient" },
+    { name = "sjphy-lib" },
     { name = "uncertainties" },
 ]
 
@@ -1411,8 +1412,14 @@ requires-dist = [
     { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "rich", specifier = ">=14.2.0" },
     { name = "rich-gradient", specifier = ">=0.3.6" },
+    { name = "sjphy-lib", editable = "lib" },
     { name = "uncertainties", specifier = ">=3.2.3" },
 ]
+
+[[package]]
+name = "sjphy-lib"
+version = "0.1.0"
+source = { editable = "lib" }
 
 [[package]]
 name = "stack-data"

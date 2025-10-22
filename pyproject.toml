@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "sjphy-lib",
     "cycler>=0.12.1",
     "ipykernel>=7.0.1",
     "matplotlib>=3.10.7",
@@ -14,3 +15,6 @@ dependencies = [
     "rich-gradient>=0.3.6",
     "uncertainties>=3.2.3",
 ]
+
+[tool.uv.sources]
+sjphy-lib = { path = "lib", editable = true }
