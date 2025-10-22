@@ -1,6 +1,8 @@
-# SJPHY
-
-End-to-end calculator for Physics Experiments in SJTU.
+<div align="center">
+    <img src="resources/logo/logo.png" width="180" alt="SJPHY Logo"/>
+    <h2>SJPHY</h2>
+    <span>End-to-end calculator for Physics Experiments in SJTU.</span>
+</div>
 
 ---
 
@@ -57,3 +59,7 @@ You will see an `output` folder created in the experiment folder, containing:
 - All generated graphs in PNG format;
 - A markdown report including all analysis results, graphs, and uncertainty analysis.
 - A pdf version of the report, rendered from the markdown file.
+
+## Attributions
+
+The project's logo comes from [FlatIcon](https://www.flaticon.com/), and is designed by smalllikeart.
