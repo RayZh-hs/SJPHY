@@ -36,7 +36,7 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 Then within the folder, create and activate the environment:
 
 ```bash
-uv sync
+uv run poe sync             # Create environment, install dependencies and link sjphy dynamic python library
 source .venv/bin/activate   # macOS/Linux
 .venv\Scripts\activate      # Windows
 ```
