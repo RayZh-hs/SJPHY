@@ -5,6 +5,10 @@ from rich.align import Align
 from rich import box
 from rich.table import Table
 from rich_gradient.text import Text as GradientText
+from rich.rule import Rule
+from richer.components import input
+
+import me
 
 __title_art__ = r"""
  ███████╗     ██╗██████╗ ██╗  ██╗██╗   ██╗
@@ -18,7 +22,7 @@ End-to-end physics experiment calculator
 """
 
 
-def help():
+def front_page():
     console = Console()
     
     # Display title with gradient effect using rich-gradient
@@ -100,6 +104,31 @@ def help():
         console.print(features_panel)
         console.print("")
 
+def init_me():
+    if me.exists():
+        return
+    console = Console()
+    console.print("🌟 It seems that this is the first time you are running [bold blue]SJPHY[/bold blue], welcome!")
+    console.print("🌟 Let's set up your user profile.")
+    console.print("🌟 All the information will be stored locally in the [bold yellow]me.yaml[/bold yellow] file.")
+    console.print("")
+    rule = Rule(title="[bold green]👤 User Profile Setup[/bold green]")
+    console.print(rule)
+    console.print("")
+    console.print("[bold white]Tell me about yourself:[/bold white]")
+    console.print("")
+    name = input("👉 Your Name").strip()
+    student_id = input("👉 Your Student ID", validator=(
+        lambda x: x.isdigit() and len(x) == 12
+    )).strip()
+    me.set(name, int(student_id))
+    console.print("")
+
+def select_notebook():
+    pass
+
 
 if __name__ == "__main__":
-    help()
+    front_page()
+    init_me()
+    select_notebook()
