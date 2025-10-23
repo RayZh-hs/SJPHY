@@ -15,6 +15,7 @@ dependencies = [
     "uncertainties>=3.2.3",
     "scipy>=1.15.3",
     "poethepoet>=0.37.0",
+    "pyperclip>=1.11.0",
 ]
 
 [tool.setuptools]
