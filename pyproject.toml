@@ -5,7 +5,6 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "sjphy-lib",
     "cycler>=0.12.1",
     "ipykernel>=7.0.1",
     "matplotlib>=3.10.7",
@@ -15,7 +14,16 @@ dependencies = [
     "rich-gradient>=0.3.6",
     "uncertainties>=3.2.3",
     "scipy>=1.15.3",
+    "poethepoet>=0.37.0",
+    "pyperclip>=1.11.0",
 ]
 
-[tool.uv.sources]
-sjphy-lib = { path = "lib", editable = true }
+[tool.setuptools]
+package-dir = {"" = "lib"}
+packages = ["graphing", "me"]
+
+[tool.poe.tasks]
+sync-deps = "uv sync"
+sync-lib = "uv pip install -e ."
+main = "uv run main.py"
+sync = { sequence = ["sync-deps", "sync-lib", "main"], help = "Syncs dependencies and the local library in editable mode." }

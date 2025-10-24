@@ -1,6 +1,8 @@
-# SJPHY
-
-End-to-end calculator for Physics Experiments in SJTU.
+<div align="center">
+    <img src="resources/logo/logo.png" width="180" alt="SJPHY Logo"/>
+    <h2>SJPHY</h2>
+    <span>End-to-end calculator for Physics Experiments in SJTU.</span>
+</div>
 
 ---
 
@@ -34,7 +36,7 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 Then within the folder, create and activate the environment:
 
 ```bash
-uv sync
+uv run poe sync             # Create environment, install dependencies and link sjphy dynamic python library
 source .venv/bin/activate   # macOS/Linux
 .venv\Scripts\activate      # Windows
 ```
@@ -48,12 +50,15 @@ Finish the installation steps above, then go to the `experiments` folder. Find t
 In each folder, you will find a `main.ipynb` file. Open it with any code editor.
 
 To use the template, copy the first python cell to a **reliable AI agent** (e.g. Google Gemini 2.5 Pro), along with **all photos of your worksheet**, constituting the all data needed to conduct analysis.
-The AI agent should produce a python snippet extracting all data from the photos, formatting them into python lists or arrays.
-**Replace the first cell with the produced code.**
+The AI agent should produce a yaml snippet extracting all data from the photos. Create a `data.yaml` file in the experiment folder and paste the produced code into it.
 
-Then, run all cells in order. The notebook should produce all analysis results, including uncertainty analysis and graphs.
+Then, run all cells in order. The notebook should produce all analysis results, including uncertainty analysis and graphs. If it is the first time you run any notebook, it will ask you to fill in your name and student ID for report generation. This result is saved at `me.yaml`, at the project root.
 
 You will see an `output` folder created in the experiment folder, containing:
 - All generated graphs in PNG format;
-- A markdown report including all analysis results, graphs, and uncertainty analysis.
-- A pdf version of the report, rendered from the markdown file.
+
+All the data you need will be printed in order when you run the cells.
+
+## Attributions
+
+The project's logo comes from [FlatIcon](https://www.flaticon.com/), and is designed by smalllikeart.

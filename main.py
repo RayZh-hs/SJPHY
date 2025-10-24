@@ -5,6 +5,14 @@ from rich.align import Align
 from rich import box
 from rich.table import Table
 from rich_gradient.text import Text as GradientText
+from rich.rule import Rule
+from rich.progress import track
+from richer.components import input, select
+
+import me
+from dataclasses import dataclass
+from pathlib import Path
+import os
 
 __title_art__ = r"""
  ███████╗     ██╗██████╗ ██╗  ██╗██╗   ██╗
@@ -18,7 +26,7 @@ End-to-end physics experiment calculator
 """
 
 
-def help():
+def front_page():
     console = Console()
     
     # Display title with gradient effect using rich-gradient
@@ -100,6 +108,72 @@ def help():
         console.print(features_panel)
         console.print("")
 
+def init_me():
+    if me.exists():
+        return
+    console = Console()
+    console.print("🌟 It seems that this is the first time you are running [bold blue]SJPHY[/bold blue], welcome!")
+    console.print("🌟 Let's set up your user profile.")
+    console.print("🌟 All the information will be stored locally in the [bold yellow]me.yaml[/bold yellow] file.")
+    console.print("")
+    rule = Rule(title="[bold green]👤 User Profile Setup[/bold green]")
+    console.print(rule)
+    console.print("")
+    console.print("[bold white]Tell me about yourself:[/bold white]")
+    console.print("")
+    name = input("👉 Your Name").strip()
+    student_id = input("👉 Your Student ID", validator=(
+        lambda x: x.isdigit() and len(x) == 12
+    )).strip()
+    me.set(name, int(student_id))
+    console.print("")
+
+def select_notebook():
+    @dataclass
+    class Experiment:
+        name: str
+        path: str
+    
+    def get_experiment_list() -> list[Experiment]:
+        repo_path = Path(__file__).resolve().parent
+        experiments_dir = repo_path / "experiments"
+        experiments_glob = os.listdir(experiments_dir)
+        return [
+            Experiment(
+                name=exp_name.replace("_", " ").title(),
+                path=str(experiments_dir / exp_name / "main.ipynb")
+            )
+            for exp_name in experiments_glob
+            if (experiments_dir / exp_name / "main.ipynb").exists()
+        ]
+    
+    console = Console()
+    console.print(Rule(title="[bold green]📓 Select Experiment Notebook[/bold green]"))
+    console.print("")
+    experiments = get_experiment_list()
+    options = [exp.name for exp in experiments]
+    select_idx = select(
+        prompt="👉 Please select an experiment notebook to proceed:",
+        options=options,
+        default_index=0,
+    )
+    console.print("")
+    experiment = experiments[select_idx]
+    if not os.path.exists(experiment.path):
+        console.print(f"[bold red]❌ Error:[/bold red] The selected notebook file does not exist at [bold yellow]{experiment.path}[/bold yellow].")
+        console.print("")
+        return
+    if not os.path.exists(os.path.join(experiment.path, 'init.py')):
+        console.print(f"Please open the notebook at [bold yellow]{experiment.path}[/bold yellow] to start the experiment.")
+        console.print("")
+        return
+    # Run the init.py file
+    console.print(f"🚀 Preparing environment for {experiment.name}...")
+    console.print("")
+    init_path = os.path.join(os.path.dirname(experiment.path), 'init.py')
+    os.system(f'uv run {init_path}')
 
 if __name__ == "__main__":
-    help()
+    front_page()
+    init_me()
+    select_notebook()
