@@ -25,4 +25,5 @@ packages = ["graphing", "me"]
 [tool.poe.tasks]
 sync-deps = "uv sync"
 sync-lib = "uv pip install -e ."
-sync = { sequence = ["sync-deps", "sync-lib"], help = "Syncs dependencies and the local library in editable mode." }
+main = "uv run main.py"
+sync = { sequence = ["sync-deps", "sync-lib", "main"], help = "Syncs dependencies and the local library in editable mode." }
