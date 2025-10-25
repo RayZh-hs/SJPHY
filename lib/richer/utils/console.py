@@ -33,4 +33,15 @@ def removeLines(n: int):
     for _ in range(n):
         print("[F[K", end='')
 
+def readUntilEOF() -> str:
+    """Reads multiple lines from stdin until EOF (Ctrl+D or Ctrl+Z)."""
+    lines = []
+    try:
+        while True:
+            line = input()
+            lines.append(line)
+    except EOFError:
+        pass
+    return "\n".join(lines)
+
 __all__ = ['getKey', 'hideCursor', 'removeLines']

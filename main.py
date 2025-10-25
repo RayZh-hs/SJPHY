@@ -141,12 +141,13 @@ def select_notebook():
         return [
             Experiment(
                 name=exp_name.replace("_", " ").title(),
-                path=str(experiments_dir / exp_name / "main.ipynb")
+                path=str(experiments_dir / exp_name)
             )
             for exp_name in experiments_glob
             if (experiments_dir / exp_name / "main.ipynb").exists()
         ]
     
+    print(get_experiment_list())
     console = Console()
     console.print(Rule(title="[bold green]📓 Select Experiment Notebook[/bold green]"))
     console.print("")
@@ -159,18 +160,18 @@ def select_notebook():
     )
     console.print("")
     experiment = experiments[select_idx]
-    if not os.path.exists(experiment.path):
+    if not os.path.exists(os.path.join(experiment.path, 'main.ipynb')):
         console.print(f"[bold red]❌ Error:[/bold red] The selected notebook file does not exist at [bold yellow]{experiment.path}[/bold yellow].")
         console.print("")
         return
     if not os.path.exists(os.path.join(experiment.path, 'init.py')):
-        console.print(f"Please open the notebook at [bold yellow]{experiment.path}[/bold yellow] to start the experiment.")
+        console.print(f"Please open the notebook at [bold yellow]{os.path.join(experiment.path, 'main.ipynb')}[/bold yellow] to start the experiment.")
         console.print("")
         return
     # Run the init.py file
-    console.print(f"🚀 Preparing environment for {experiment.name}...")
+    console.print(f"🚀 Preparing environment for {experiment.name}...", highlight=False)
     console.print("")
-    init_path = os.path.join(os.path.dirname(experiment.path), 'init.py')
+    init_path = os.path.join(experiment.path, 'init.py')
     os.system(f'uv run {init_path}')
 
 if __name__ == "__main__":

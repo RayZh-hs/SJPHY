@@ -2,6 +2,7 @@ from .console import (
     getKey,
     hideCursor,
     removeLines,
+    readUntilEOF,
 )
 
 KEY_CODE = {
@@ -13,4 +14,5 @@ __all__ = [
     'hideCursor',
     'removeLines',
     'KEY_CODE',
+    'readUntilEOF',
 ]
