@@ -26,4 +26,5 @@ packages = ["graphing", "me"]
 sync-deps = "uv sync"
 sync-lib = "uv pip install -e ."
 main = "uv run main.py"
+setup = "uv run main.py --setup"
 sync = { sequence = ["sync-deps", "sync-lib", "main"], help = "Syncs dependencies and the local library in editable mode." }

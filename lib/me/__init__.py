@@ -23,13 +23,29 @@ def exists() -> bool:
     me_yaml_path = _get_me_path()
     return me_yaml_path.exists()
 
+def valid() -> bool:
+    """Check if the me.yaml configuration file is valid."""
+    if not exists():
+        return False
+    try:
+        student = get()
+        if not isinstance(student['student_name'], str):
+            return False
+        if not isinstance(student['student_id'], int):
+            return False
+        if not isinstance(student['class_name'], str):
+            return False
+    except Exception:
+        return False
+    return True
+
 def set(student_name: str, student_id: int, class_name: str) -> None:
     """Create or overwrite the me.yaml configuration file."""
     me_yaml_path = _get_me_path()
     data = {
         "student_name": student_name,
         "student_id": student_id,
-        "class": class_name,
+        "class_name": class_name,
     }
     with open(me_yaml_path, 'w', encoding='utf-8') as f:
         yaml.dump(data, f, allow_unicode=True)

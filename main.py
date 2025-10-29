@@ -6,12 +6,12 @@ from rich import box
 from rich.table import Table
 from rich_gradient.text import Text as GradientText
 from rich.rule import Rule
-from rich.progress import track
 from richer.components import input, select
 
-import me
+import argparse
 from dataclasses import dataclass
 from pathlib import Path
+import me
 import os
 
 __title_art__ = r"""
@@ -109,10 +109,14 @@ def front_page():
         console.print("")
 
 def init_me():
-    if me.exists():
-        return
     console = Console()
-    console.print("🌟 It seems that this is the first time you are running [bold blue]SJPHY[/bold blue], welcome!")
+    if me.exists() and me.valid():
+        return
+    if me.exists():
+        console.print("[bold red]⚠️  Warning:[/bold red] Your existing user profile seems invalid or corrupted. Let's set it up again.")
+        console.print("")
+    else:
+        console.print("🌟 It seems that this is the first time you are running [bold blue]SJPHY[/bold blue], welcome!")
     console.print("🌟 Let's set up your user profile.")
     console.print("🌟 All the information will be stored locally in the [bold yellow]me.yaml[/bold yellow] file.")
     console.print("")
@@ -128,6 +132,14 @@ def init_me():
     class_name = input("👉 Your Class Name").strip()
     me.set(name, int(student_id), class_name)
     console.print("")
+
+def end_init():
+    console = Console()
+    console.print("[bold green]✅ User profile setup complete![/bold green]")
+    console.print(
+        f"🎉 Welcome, [bold blue]{me.get()['student_name']}[/bold blue]! You can now run `uv run main.py` to start your automation journey."
+    )
+    exit(0)
 
 def select_notebook():
     @dataclass
@@ -148,7 +160,6 @@ def select_notebook():
             if (experiments_dir / exp_name / "main.ipynb").exists()
         ]
     
-    print(get_experiment_list())
     console = Console()
     console.print(Rule(title="[bold green]📓 Select Experiment Notebook[/bold green]"))
     console.print("")
@@ -176,6 +187,16 @@ def select_notebook():
     os.system(f'uv run {init_path}')
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="SJPHY - End-to-end physics experiment calculator")
+    parser.add_argument('--setup', action='store_true', help='Run user profile setup')
+    args = parser.parse_args()
+    
     front_page()
-    init_me()
-    select_notebook()
+    
+    if args.setup:
+        # User init mode, stop after init_me
+        init_me()
+        end_init()
+    else:
+        init_me()
+        select_notebook()
