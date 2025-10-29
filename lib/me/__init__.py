@@ -6,6 +6,7 @@ from typing import TypedDict
 class Student(TypedDict):
     student_name: str
     student_id: int
+    class_name: str
 
 def _get_me_path() -> Path:
     """Get the path to the me.yaml configuration file."""
@@ -22,12 +23,13 @@ def exists() -> bool:
     me_yaml_path = _get_me_path()
     return me_yaml_path.exists()
 
-def set(student_name: str, student_id: int) -> None:
+def set(student_name: str, student_id: int, class_name: str) -> None:
     """Create or overwrite the me.yaml configuration file."""
     me_yaml_path = _get_me_path()
     data = {
         "student_name": student_name,
-        "student_id": student_id
+        "student_id": student_id,
+        "class": class_name,
     }
     with open(me_yaml_path, 'w', encoding='utf-8') as f:
         yaml.dump(data, f, allow_unicode=True)
@@ -40,7 +42,7 @@ def get() -> Student:
     me_yaml_path = _get_me_path()
     with open(me_yaml_path, 'r', encoding='utf-8') as f:
         data = yaml.safe_load(f)
-    return Student(student_name=data['student_name'], student_id=data['student_id'])
+    return Student(student_name=data['student_name'], student_id=data['student_id'], class_name=data['class_name'])
 
 def get_name() -> str:
     """Get the student name from me.yaml."""
@@ -50,10 +52,15 @@ def get_id() -> int:
     """Get the student ID from me.yaml."""
     return get()['student_id']
 
+def get_class() -> str:
+    """Get the class name from me.yaml."""
+    return get()['class_name']
+
 __all__ = [
     "exists",
     "set",
     "get",
     "get_name",
     "get_id",
+    "get_class",
 ]
