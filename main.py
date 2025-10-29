@@ -125,7 +125,8 @@ def init_me():
     student_id = input("👉 Your Student ID", validator=(
         lambda x: x.isdigit() and len(x) == 12
     )).strip()
-    me.set(name, int(student_id))
+    class_name = input("👉 Your Class Name").strip()
+    me.set(name, int(student_id), class_name)
     console.print("")
 
 def select_notebook():
