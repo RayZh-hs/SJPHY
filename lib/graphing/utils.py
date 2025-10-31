@@ -158,7 +158,7 @@ def plot_graph(ax, x_data, y_data, options) -> dict:
 
     return ret
 
-def add_signature(ax: Axes, date: str, position: str = "lower right") -> None:
+def add_signature(ax: Axes, date: str, position: str = "lower right", scale: float = 1.0) -> None:
     """
     Add a signature box with the date to the specified axes.
 
@@ -170,10 +170,10 @@ def add_signature(ax: Axes, date: str, position: str = "lower right") -> None:
     """
 
     bbox_map = {
-        "upper left": [0.0, 0.7, 0.45, 0.3],
-        "upper right": [0.55, 0.7, 0.45, 0.3],
-        "lower left": [0.0, 0.0, 0.45, 0.3],
-        "lower right": [0.55, 0.0, 0.45, 0.3],
+        "upper left": [0.0, 1 - 0.3 * scale, 0.45 * scale, 0.3 * scale],
+        "upper right": [1 - 0.45 * scale, 1 - 0.3 * scale, 0.45 * scale, 0.3 * scale],
+        "lower left": [0.0, 0.0, 0.45 * scale, 0.3 * scale],
+        "lower right": [1 - 0.45 * scale, 0.0, 0.45 * scale, 0.3 * scale],
     }
     x, y, w, h = bbox_map.get(position, bbox_map["lower right"])
 
