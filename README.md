@@ -6,6 +6,8 @@
 
 ---
 
+**English** | [中文](README_CN.md)
+
 This project aims at providing fast, reliable physics experiment data analysis results including graphics and uncertainty analysis.
 
 It is currently under active development. See the `dev` branch for up-to-date info.
@@ -42,13 +44,13 @@ uv run poe sync             # Create environment, install dependencies and link 
 Activate the environment. On macOS/Linux:
 
 ```bash
-source .venv/bin/activate   # macOS/Linux
+source .venv/bin/activate
 ```
 
 On Windows:
 
 ```powershell
-.venv\Scripts\activate    # Windows
+.venv\Scripts\activate
 ```
 
 This should automatically setup and install all dependencies.
@@ -60,9 +62,9 @@ Finish the installation steps above, then go to the `experiments` folder. Find t
 In each folder, you will find a `main.ipynb` file. Open it with any code editor.
 
 To use the template, copy the first python cell to a **reliable AI agent** (e.g. Google Gemini 2.5 Pro), along with **all photos of your worksheet**, constituting the all data needed to conduct analysis.
-The AI agent should produce a yaml snippet extracting all data from the photos. Replace the content of the first cell with the yaml snippet, then run the file cell by cell. Some notebooks require you to fill in or tweak some parameters, so be sure to look for comments in them if the output is not as expected.
+The AI agent should produce a python snippet extracting all data from the photos. Replace the content of the first cell with the snippet, then run the file cell by cell. Some notebooks require you to fill in or tweak some parameters, so be sure to look for comments in them if the output is not as expected.
 
-Then, run all cells in order. The notebook should produce all analysis results, including uncertainty analysis and graphs. If it is the first time you run any notebook, it will ask you to fill in your name and student ID for report generation. This result is saved at `me.yaml`, at the project root.
+Then, run all cells in order. The notebook should produce all analysis results, including uncertainty analysis and graphs. If it is the first time you run any notebook, it will ask you to fill in your name and student ID for report generation. This result is saved at `me.yaml`, at the project root. Tweak it manually if there is any mistake.
 
 You will see an `output` folder created in the experiment folder, containing:
 - All generated graphs in PNG format;
