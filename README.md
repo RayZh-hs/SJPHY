@@ -37,8 +37,18 @@ Then within the folder, create and activate the environment:
 
 ```bash
 uv run poe sync             # Create environment, install dependencies and link sjphy dynamic python library
+```
+
+Activate the environment. On macOS/Linux:
+
+```bash
 source .venv/bin/activate   # macOS/Linux
-.venv\Scripts\activate      # Windows
+```
+
+On Windows:
+
+```powershell
+.venv\Scripts\activate    # Windows
 ```
 
 This should automatically setup and install all dependencies.
@@ -50,7 +60,7 @@ Finish the installation steps above, then go to the `experiments` folder. Find t
 In each folder, you will find a `main.ipynb` file. Open it with any code editor.
 
 To use the template, copy the first python cell to a **reliable AI agent** (e.g. Google Gemini 2.5 Pro), along with **all photos of your worksheet**, constituting the all data needed to conduct analysis.
-The AI agent should produce a yaml snippet extracting all data from the photos. Create a `data.yaml` file in the experiment folder and paste the produced code into it.
+The AI agent should produce a yaml snippet extracting all data from the photos. Replace the content of the first cell with the yaml snippet, then run the file cell by cell. Some notebooks require you to fill in or tweak some parameters, so be sure to look for comments in them if the output is not as expected.
 
 Then, run all cells in order. The notebook should produce all analysis results, including uncertainty analysis and graphs. If it is the first time you run any notebook, it will ask you to fill in your name and student ID for report generation. This result is saved at `me.yaml`, at the project root.
 
